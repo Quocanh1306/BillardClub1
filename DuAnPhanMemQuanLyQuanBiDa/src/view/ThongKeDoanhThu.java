@@ -1,8 +1,20 @@
 package view;
 
 
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import service.HoaDonService;
+import viewModel.ThongKeBanChoi;
+import viewModel.ThongKeViewModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,12 +27,13 @@ import javax.swing.JOptionPane;
  */
 public class ThongKeDoanhThu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainTest
-     */
+    private HoaDonService service = new HoaDonService();
+    DefaultTableModel model;
     public ThongKeDoanhThu() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDataChart(jPanel13);
+        loadTable();
     }
 
     /**
@@ -76,10 +89,9 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblThongKeBanChoi = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1540, 810));
         setSize(new java.awt.Dimension(1540, 810));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -279,7 +291,7 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Thong ke doanh thu", jPanel13);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblThongKeBanChoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -298,7 +310,7 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblThongKeBanChoi);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -390,7 +402,24 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
             x=0;
         }
     }//GEN-LAST:event_jLabel3MouseClicked
+    private void setDataChart(JPanel panel) {
+        List<ThongKeViewModel> list = service.thongKe();
+        if (list != null) {
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for (ThongKeViewModel item : list) {
+                dataset.setValue(item.getDoanhThu(), "Doanh thu", item.getThoiGian());
+            }
+            JFreeChart chart = ChartFactory.createBarChart("Thong ke doanh thu", "Thoi gian", "Doanh thu", dataset);
+            ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new Dimension(panel.getWidth(), 300));
 
+            panel.removeAll();
+            panel.setLayout(new CardLayout());
+            panel.add(chartPanel);
+            panel.validate();
+            panel.repaint();
+        }
+    }
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
 //        panelMenu.setSize(0,650);
 if ( x ==0 ) {
@@ -495,7 +524,17 @@ if ( x ==0 ) {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JPanel panelMenu;
+    private javax.swing.JTable tblThongKeBanChoi;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTable() {
+        model = (DefaultTableModel) tblThongKeBanChoi.getModel();
+        model.setRowCount(0);
+        List<ThongKeBanChoi> list = service.thongKeBanChoi();
+        for (ThongKeBanChoi s : list) {
+            model.addRow(new Object[]{s.getBanChoi(), s.getTongTien()});
+
+        }
+    }
 }

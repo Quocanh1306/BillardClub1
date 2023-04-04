@@ -14,7 +14,7 @@ import utility.DBContext;
 
 public class DichVuRepository {
 
-    final String insert = "INSERT INTO DichVu(ma, ten, gia, loaiDV, soLuong, tinhTrang) VALUES(?,?,?,?,?,?,?)";
+    final String insert = "INSERT INTO DichVu(ma, ten, gia, loaiDV, soLuong, tinhTrang) VALUES(?,?,?,?,?,?)";
     final String update = "UPDATE DichVu SET TEN = ?, gia = ?, loaiDV = ?, soLuong = ?, tinhTrang=? WHERE ma = ?";
     final String delete = "UPDATE DichVu Set tinhTrang = ? where ma = ?";
 
@@ -51,7 +51,7 @@ public class DichVuRepository {
         return ketQuaTruyVan;
     }
 
-    public int updateTacGiaRepository(DichVu dv) {
+    public int updateDichVuRepository(DichVu dv) {
         int ketQuaTruyVan = -1;
         try ( Connection con = DBContext.getConnection();  PreparedStatement sttm = con.prepareStatement(update)) {
             sttm.setString(1, dv.getTen());
@@ -59,19 +59,18 @@ public class DichVuRepository {
             sttm.setString(3, dv.getLoaiDV());
             sttm.setInt(4, dv.getSoLuong());
             sttm.setInt(5, dv.getTinhTrang());
-            sttm.setString(7, dv.getMa());
-            ketQuaTruyVan = sttm.executeUpdate();
+            sttm.setString(6, dv.getMa());
             ketQuaTruyVan = sttm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ketQuaTruyVan;
     }
-    public int deleteDichVuRepository(DichVu dv) {
+    public int deleteDichVuRepository(String ma) {
         int ketQuaTruyVan = -1;
         try ( Connection con = DBContext.getConnection();  PreparedStatement sttm = con.prepareStatement(delete)) {
-            sttm.setInt(1, dv.getTinhTrang());
-            sttm.setString(2, dv.getMa());
+            sttm.setInt(1, 0);
+            sttm.setString(2, ma);
             ketQuaTruyVan = sttm.executeUpdate();
             ketQuaTruyVan = sttm.executeUpdate();
         } catch (Exception e) {

@@ -32,6 +32,15 @@ public class DichVu {
         this.tinhTrang = tinhTrang;
     }
 
+    public DichVu(String ma, String ten, BigDecimal gia, String loaiDV, int soLuong, int tinhTrang) {
+        this.ma = ma;
+        this.ten = ten;
+        this.gia = gia;
+        this.loaiDV = loaiDV;
+        this.soLuong = soLuong;
+        this.tinhTrang = tinhTrang;
+    }
+    
     
 
     public int getId() {

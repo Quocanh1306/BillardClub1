@@ -1,8 +1,14 @@
 package view;
 
 
+import java.math.BigDecimal;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.DichVu;
+import model.KhachHang;
+import service.DichVuService;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,12 +21,12 @@ import javax.swing.JOptionPane;
  */
 public class QuanLyDichVu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainTest
-     */
+    DefaultTableModel model;
+    private DichVuService service = new DichVuService();
     public QuanLyDichVu() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        loadTable();
     }
 
     /**
@@ -34,6 +40,7 @@ public class QuanLyDichVu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -71,13 +78,13 @@ public class QuanLyDichVu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtMaNV = new javax.swing.JTextField();
+        txtMa = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        txtTenNV = new javax.swing.JTextField();
+        txtTen = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        rdoNghiviec = new javax.swing.JRadioButton();
-        rdoLamviec = new javax.swing.JRadioButton();
+        rdKoHD = new javax.swing.JRadioButton();
+        rdHD = new javax.swing.JRadioButton();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -87,17 +94,16 @@ public class QuanLyDichVu extends javax.swing.JFrame {
         btnnext = new javax.swing.JButton();
         btnLast = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        txtEmail1 = new javax.swing.JTextField();
+        tblDichVu = new javax.swing.JTable();
+        txtSoLuong = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        txtTenNV1 = new javax.swing.JTextField();
+        txtGia = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        txtTenNV2 = new javax.swing.JTextField();
+        txtLoaiDV = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1540, 810));
         setSize(new java.awt.Dimension(1540, 810));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -287,9 +293,9 @@ public class QuanLyDichVu extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel28.setText("Tên");
 
-        txtTenNV.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTen.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTenNVKeyReleased(evt);
+                txtTenKeyReleased(evt);
             }
         });
 
@@ -299,18 +305,20 @@ public class QuanLyDichVu extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel30.setText("Trạng thái");
 
-        rdoNghiviec.setText("Het han");
-        rdoNghiviec.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdKoHD);
+        rdKoHD.setText("Het han");
+        rdKoHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoNghiviecActionPerformed(evt);
+                rdKoHDActionPerformed(evt);
             }
         });
 
-        rdoLamviec.setSelected(true);
-        rdoLamviec.setText("Con han");
-        rdoLamviec.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdHD);
+        rdHD.setSelected(true);
+        rdHD.setText("Con han");
+        rdHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoLamviecActionPerformed(evt);
+                rdHDActionPerformed(evt);
             }
         });
 
@@ -374,7 +382,7 @@ public class QuanLyDichVu extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDichVu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -382,7 +390,7 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Ma", "Ten", "Gia", "Loai DV", "So Luong", "Tinh Trang"
+                "STT", "Ma", "Ten", "Gia", "Loai DV", "So Luong", "Tinh Trang"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -393,29 +401,34 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblDichVu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblDichVu);
 
-        txtEmail1.addActionListener(new java.awt.event.ActionListener() {
+        txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmail1ActionPerformed(evt);
+                txtSoLuongActionPerformed(evt);
             }
         });
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel31.setText("Gia");
 
-        txtTenNV1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtGia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTenNV1KeyReleased(evt);
+                txtGiaKeyReleased(evt);
             }
         });
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel32.setText("Gia");
+        jLabel32.setText("Loai DV");
 
-        txtTenNV2.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtLoaiDV.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTenNV2KeyReleased(evt);
+                txtLoaiDVKeyReleased(evt);
             }
         });
 
@@ -446,23 +459,27 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(rdoNghiviec)
+                                .addComponent(rdKoHD)
                                 .addGap(18, 18, 18)
-                                .addComponent(rdoLamviec))
-                            .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(rdHD))
+                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(72, 72, 72))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
-                            .addComponent(txtTenNV)
-                            .addComponent(txtMaNV)
-                            .addComponent(txtTenNV1)
-                            .addComponent(txtTenNV2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTen)
+                            .addComponent(txtMa)
+                            .addComponent(txtGia)
+                            .addComponent(txtLoaiDV, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(79, 79, 79)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -495,7 +512,7 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnStart)
                             .addComponent(btnPrev)
                             .addComponent(btnnext)
@@ -503,14 +520,14 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28)
-                            .addComponent(txtTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTenNV1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel31))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTenNV2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLoaiDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -524,13 +541,13 @@ public class QuanLyDichVu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel29)
-                    .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel30)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rdoNghiviec)
-                        .addComponent(rdoLamviec)))
+                        .addComponent(rdKoHD)
+                        .addComponent(rdHD)))
                 .addGap(92, 92, 92))
         );
 
@@ -601,28 +618,71 @@ if ( x ==0 ) {
         }
     }//GEN-LAST:event_jLabel16MouseClicked
 
-    private void txtTenNVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenNVKeyReleased
+    private void txtTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenNVKeyReleased
+    }//GEN-LAST:event_txtTenKeyReleased
 
-    private void rdoNghiviecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNghiviecActionPerformed
+    private void rdKoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdKoHDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdoNghiviecActionPerformed
+    }//GEN-LAST:event_rdKoHDActionPerformed
 
-    private void rdoLamviecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoLamviecActionPerformed
+    private void rdHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdHDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdoLamviecActionPerformed
+    }//GEN-LAST:event_rdHDActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        String ma = txtMa.getText();
+        String ten = txtTen.getText();
+        Double giaDouble = Double.valueOf(txtGia.getText());
+        BigDecimal gia = BigDecimal.valueOf(giaDouble);
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        int tinhTrang = 0;
+        if(rdHD.isSelected()) {
+            tinhTrang = 1;
+        }else {
+            tinhTrang =0;
+        }
+        DichVu dv = new DichVu(ma, ten, gia, ma, soLuong, tinhTrang);
+        if(service.create(dv) != 0) {
+            JOptionPane.showMessageDialog(this, "Them thanh cong");
+        }else {
+            JOptionPane.showMessageDialog(this, "Them that bai");
+            return;
+        }
+        loadTable();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        String ma = txtMa.getText();
+        if(service.delete(ma) != 0) {
+            JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+        }else{
+            JOptionPane.showMessageDialog(this, "Xoa that bai");
+            return;
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-
+        String ma = txtMa.getText();
+        String ten = txtTen.getText();
+        Double giaDouble = Double.valueOf(txtGia.getText());
+        BigDecimal gia = BigDecimal.valueOf(giaDouble);
+        String loaiDV = txtLoaiDV.getText();
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        int trangThai =0;
+        if(rdHD.isSelected()) {
+            trangThai = 1;
+        }else {
+            trangThai =0;
+        }
+        DichVu dv = new DichVu(ma, ten, gia, loaiDV, soLuong, trangThai);
+        if(service.update(dv) != 0) {
+            JOptionPane.showMessageDialog(this, "Update thanh cong");
+        }else {
+            JOptionPane.showMessageDialog(this, "Update that bai");
+            return;
+        }
+        loadTable();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tbnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbnLamMoiActionPerformed
@@ -645,17 +705,36 @@ if ( x ==0 ) {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLastActionPerformed
 
-    private void txtEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmail1ActionPerformed
+    private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmail1ActionPerformed
+    }//GEN-LAST:event_txtSoLuongActionPerformed
 
-    private void txtTenNV1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenNV1KeyReleased
+    private void txtGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGiaKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenNV1KeyReleased
+    }//GEN-LAST:event_txtGiaKeyReleased
 
-    private void txtTenNV2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenNV2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenNV2KeyReleased
+    private void txtLoaiDVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoaiDVKeyReleased
+        
+    }//GEN-LAST:event_txtLoaiDVKeyReleased
+
+    private void tblDichVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseClicked
+        int selectedRow = tblDichVu.getSelectedRow();
+        List<DichVu> list = service.getAll();
+        DichVu s = list.get(selectedRow);
+        if (selectedRow < 0) {
+            return;
+        }
+        txtMa.setText(s.getMa());
+        txtTen.setText(String.valueOf(s.getTen()));
+        txtGia.setText(String.valueOf(s.getGia()));
+        txtLoaiDV.setText(String.valueOf(s.getLoaiDV()));
+        txtSoLuong.setText(String.valueOf(s.getSoLuong()));
+        if (s.getTinhTrang() == 1) {
+            rdHD.setSelected(true);
+        } else {
+            rdKoHD.setSelected(true);
+        }
+    }//GEN-LAST:event_tblDichVuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -703,6 +782,7 @@ if ( x ==0 ) {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnnext;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -746,16 +826,27 @@ if ( x ==0 ) {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JRadioButton rdoLamviec;
-    private javax.swing.JRadioButton rdoNghiviec;
+    private javax.swing.JRadioButton rdHD;
+    private javax.swing.JRadioButton rdKoHD;
+    private javax.swing.JTable tblDichVu;
     private javax.swing.JButton tbnLamMoi;
-    private javax.swing.JTextField txtEmail1;
-    private javax.swing.JTextField txtMaNV;
-    private javax.swing.JTextField txtTenNV;
-    private javax.swing.JTextField txtTenNV1;
-    private javax.swing.JTextField txtTenNV2;
+    private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtLoaiDV;
+    private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtSoLuong;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTable() {
+        int i=1;
+        model = (DefaultTableModel) tblDichVu.getModel();
+        model.setRowCount(0);
+        List<DichVu> list = service.getAll();
+        for (DichVu s : list) {
+            model.addRow(new Object[]{i++ ,s.getMa(), s.getTen(), s.getGia(), s.getLoaiDV(), s.getSoLuong(), s.getTinhTrang()});
+
+        }
+    }
 }

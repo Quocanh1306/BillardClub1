@@ -21,8 +21,8 @@ public class KhachHangService {
     public boolean create(KhachHang kh) {
         return repo.insert(kh);
     }
-    public boolean delete(KhachHang kh) {
-        return repo.delete(kh);
+    public boolean delete(String ma) {
+        return repo.delete(ma);
     }
     public boolean update(KhachHang kh) {
         return repo.update(kh);

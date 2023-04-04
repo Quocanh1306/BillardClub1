@@ -15,17 +15,18 @@ public class KhachHang {
     private String ma;
     private String ten;
     private int gioiTinh;
-    private Date ngaySinh;
+    private String ngaySinh;
     private String diaChi;
     private String sdt;
     private int diemTichLuy;
     private String soCMT;
     private int tinhTrang;
+    private String email;
 
     public KhachHang() {
     }
 
-    public KhachHang(int id, String ma, String ten, int gioiTinh, Date ngaySinh, String diaChi, String sdt, int diemTichLuy, String soCMT, int tinhTrang) {
+    public KhachHang(int id, String ma, String ten, int gioiTinh, String ngaySinh, String diaChi, String sdt, int diemTichLuy, String soCMT, int tinhTrang, String email) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -36,7 +37,22 @@ public class KhachHang {
         this.diemTichLuy = diemTichLuy;
         this.soCMT = soCMT;
         this.tinhTrang = tinhTrang;
+        this.email = email;
     }
+
+    public KhachHang(String ma, String ten, int gioiTinh, String ngaySinh, String diaChi, String sdt, int diemTichLuy, String soCMT, int tinhTrang, String email) {
+        this.ma = ma;
+        this.ten = ten;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.diemTichLuy = diemTichLuy;
+        this.soCMT = soCMT;
+        this.tinhTrang = tinhTrang;
+        this.email = email;
+    }
+    
 
     
     public int getId() {
@@ -71,13 +87,15 @@ public class KhachHang {
         this.gioiTinh = gioiTinh;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+
+    
 
     public String getDiaChi() {
         return diaChi;
@@ -117,6 +135,14 @@ public class KhachHang {
 
     public void setDiemTichLuy(int diemTichLuy) {
         this.diemTichLuy = diemTichLuy;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     
