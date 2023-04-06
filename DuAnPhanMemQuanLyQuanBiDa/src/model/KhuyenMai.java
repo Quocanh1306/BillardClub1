@@ -15,11 +15,23 @@ public class KhuyenMai {
     private String ma;
     private String ten;
     private int phanTramGiam;
-    private Date ngayApDung;
-    private Date ngayKetThuc;
+    private String ngayApDung;
+    private String ngayKetThuc;
     private int tinhTrang;
 
-    public KhuyenMai(int id, String ma, String ten, int phanTramGiam, Date ngayApDung, Date ngayKetThuc, int tinhTrang) {
+    public KhuyenMai() {
+    }
+
+    public KhuyenMai(String ma, String ten, int phanTramGiam, String ngayApDung, String ngayKetThuc, int tinhTrang) {
+        this.ma = ma;
+        this.ten = ten;
+        this.phanTramGiam = phanTramGiam;
+        this.ngayApDung = ngayApDung;
+        this.ngayKetThuc = ngayKetThuc;
+        this.tinhTrang = tinhTrang;
+    }
+
+    public KhuyenMai(int id, String ma, String ten, int phanTramGiam, String ngayApDung, String ngayKetThuc, int tinhTrang) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -29,15 +41,6 @@ public class KhuyenMai {
         this.tinhTrang = tinhTrang;
     }
 
-    public int getPhanTramGiam() {
-        return phanTramGiam;
-    }
-
-    public void setPhanTramGiam(int phanTramGiam) {
-        this.phanTramGiam = phanTramGiam;
-    }
-
-    
     public int getId() {
         return id;
     }
@@ -62,19 +65,27 @@ public class KhuyenMai {
         this.ten = ten;
     }
 
-    public Date getNgayApDung() {
+    public int getPhanTramGiam() {
+        return phanTramGiam;
+    }
+
+    public void setPhanTramGiam(int phanTramGiam) {
+        this.phanTramGiam = phanTramGiam;
+    }
+
+    public String getNgayApDung() {
         return ngayApDung;
     }
 
-    public void setNgayApDung(Date ngayApDung) {
+    public void setNgayApDung(String ngayApDung) {
         this.ngayApDung = ngayApDung;
     }
 
-    public Date getNgayKetThuc() {
+    public String getNgayKetThuc() {
         return ngayKetThuc;
     }
 
-    public void setNgayKetThuc(Date ngayKetThuc) {
+    public void setNgayKetThuc(String ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
     }
 
@@ -85,5 +96,7 @@ public class KhuyenMai {
     public void setTinhTrang(int tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
+
+   
      
 }
