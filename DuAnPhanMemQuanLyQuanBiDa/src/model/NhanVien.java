@@ -39,6 +39,12 @@ public class NhanVien {
         this.tinhTrang = tinhTrang;
     }
 
+    public NhanVien(String ma, String matKhau) {
+        this.ma = ma;
+        this.matKhau = matKhau;
+    }
+    
+
     public int getId() {
         return id;
     }

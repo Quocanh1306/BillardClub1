@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.NhanVien;
 import utility.DBContext;
+import viewModel.UserLogin;
 
 public class NhanVienRepository {
 
@@ -37,6 +38,28 @@ public class NhanVienRepository {
             }
         } catch (SQLException ex) {
             System.out.println("Lỗi tại get all()");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(NhanVienRepository.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        return listNhanVien;
+    }
+    
+    public List<UserLogin> getUser() {
+        List<UserLogin> listNhanVien = new ArrayList<>();
+        String SELECT_NHANVIEN = "SELECT ma, matKhau FROM NHANVIEN";
+        try {
+            Connection conn = DBContext.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SELECT_NHANVIEN);
+            while (rs.next()) {
+                listNhanVien.add(new UserLogin(
+                        rs.getString(1),
+                        rs.getString(2)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi tại get getUser()");
             ex.printStackTrace();
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(NhanVienRepository.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -138,5 +161,10 @@ public class NhanVienRepository {
             java.util.logging.Logger.getLogger(NhanVienRepository.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public static void main(String[] args) {
+        NhanVienRepository repo = new NhanVienRepository();
+        List<NhanVien> list = repo.all();
+        System.out.println(list.get(1));
     }
 }
