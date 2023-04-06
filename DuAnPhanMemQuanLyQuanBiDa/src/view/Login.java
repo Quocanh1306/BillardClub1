@@ -5,6 +5,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import service.NhanVienService;
+
 /**
  *
  * @author ME1
@@ -14,6 +17,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+    private NhanVienService service = new NhanVienService();
     public Login() {
         initComponents();
         txtusername.setBackground(new java.awt.Color(0,0,0,1));
@@ -171,6 +175,11 @@ public class Login extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 153, 0));
         jButton1.setText("LOGIN");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 306, 341, 40));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -223,6 +232,19 @@ public class Login extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String maNV = txtusername.getText();
+        String matKhau = txtpassword.getText();
+        if(service.checkLogin(maNV, matKhau)) {
+            TrangChu tt = new TrangChu();
+            tt.setVisible(true);
+        }else {
+            JOptionPane.showMessageDialog(this, "Dang nhap that bai");
+            return;
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
