@@ -1,6 +1,9 @@
 
+
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import view.ThanhToan;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -35,6 +38,12 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBan = new javax.swing.JPopupMenu();
+        vaoBan = new javax.swing.JMenuItem();
+        ketThucBan = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        datBan = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -71,7 +80,7 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
+        Ban01 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
@@ -89,10 +98,10 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
+        lblBan01 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
+        lblTrangThaiBan01 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
@@ -146,9 +155,38 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
 
+        vaoBan.setText("Vao ban");
+        vaoBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaoBanActionPerformed(evt);
+            }
+        });
+        menuBan.add(vaoBan);
+
+        ketThucBan.setText("Ket Thuc Ban");
+        ketThucBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ketThucBanActionPerformed(evt);
+            }
+        });
+        menuBan.add(ketThucBan);
+
+        jMenuItem3.setText("Huy Trang Thai");
+        menuBan.add(jMenuItem3);
+
+        jMenuItem4.setText("Chi Tiet Ban");
+        menuBan.add(jMenuItem4);
+
+        datBan.setText("Dat Ban");
+        datBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datBanActionPerformed(evt);
+            }
+        });
+        menuBan.add(datBan);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1920, 1080));
-        setPreferredSize(new java.awt.Dimension(1540, 810));
         setSize(new java.awt.Dimension(1540, 810));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -332,18 +370,23 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel16.setBackground(new java.awt.Color(255, 51, 51));
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/banbida.jpg"))); // NOI18N
+        Ban01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/banbida.jpg"))); // NOI18N
+        Ban01.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Ban01MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Ban01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(jLabel28)
+                .addComponent(Ban01)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -494,10 +537,10 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel1.setText("Quản lý bàn chơi");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
 
-        jLabel34.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel34.setText("Bàn 1");
-        jPanel1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
+        lblBan01.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblBan01.setForeground(new java.awt.Color(255, 51, 0));
+        lblBan01.setText("Bàn 1");
+        jPanel1.add(lblBan01, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(255, 51, 0));
@@ -509,11 +552,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel38.setText("Bàn 3");
         jPanel1.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 160, -1, -1));
 
-        jLabel39.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(0, 153, 51));
-        jLabel39.setText("Trạng thái:");
-        jPanel1.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
+        lblTrangThaiBan01.setBackground(new java.awt.Color(255, 255, 255));
+        lblTrangThaiBan01.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lblTrangThaiBan01.setForeground(new java.awt.Color(0, 153, 51));
+        lblTrangThaiBan01.setText("Trạng thái:");
+        jPanel1.add(lblTrangThaiBan01, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         jLabel40.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(0, 153, 51));
@@ -721,9 +764,13 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel56.setText("Bàn 9");
         jPanel1.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 330, -1, -1));
 
+        jLabel57.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(255, 51, 51));
         jLabel57.setText("Bàn 5");
         jPanel1.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(1410, 160, -1, -1));
 
+        jLabel58.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(255, 51, 51));
         jLabel58.setText("Bàn 10");
         jPanel1.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 330, -1, -1));
 
@@ -747,6 +794,8 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         jLabel62.setText("Bàn 14");
         jPanel1.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 500, -1, -1));
 
+        jLabel63.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 51, 51));
         jLabel63.setText("Bàn 15");
         jPanel1.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 500, -1, -1));
 
@@ -903,6 +952,28 @@ if ( x ==0 ) {
         }
     }//GEN-LAST:event_jLabel16MouseClicked
 
+    private void Ban01MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Ban01MouseClicked
+        menuBan.show(Ban01, evt.getX(), evt.getY());
+    }//GEN-LAST:event_Ban01MouseClicked
+
+    private void vaoBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaoBanActionPerformed
+        String ban = "Ban 01";
+        ThanhToan tt = new ThanhToan(ban);
+        tt.setVisible(true);
+        lblTrangThaiBan01.setText("Trang thai: Dang choi");
+        lblTrangThaiBan01.setForeground(Color.red);
+    }//GEN-LAST:event_vaoBanActionPerformed
+
+    private void ketThucBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ketThucBanActionPerformed
+        lblTrangThaiBan01.setText("Trang thai: Con Trong");
+        lblTrangThaiBan01.setForeground(Color.green);
+    }//GEN-LAST:event_ketThucBanActionPerformed
+
+    private void datBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datBanActionPerformed
+        lblTrangThaiBan01.setText("Trang thai: Ban da duoc dat");
+        lblTrangThaiBan01.setForeground(Color.YELLOW);
+    }//GEN-LAST:event_datBanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -939,6 +1010,8 @@ if ( x ==0 ) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Ban01;
+    private javax.swing.JMenuItem datBan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -961,19 +1034,16 @@ if ( x ==0 ) {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -1019,6 +1089,8 @@ if ( x ==0 ) {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1048,6 +1120,11 @@ if ( x ==0 ) {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JMenuItem ketThucBan;
+    private javax.swing.JLabel lblBan01;
+    private javax.swing.JLabel lblTrangThaiBan01;
+    private javax.swing.JPopupMenu menuBan;
     private javax.swing.JPanel panelMenu;
+    private javax.swing.JMenuItem vaoBan;
     // End of variables declaration//GEN-END:variables
 }

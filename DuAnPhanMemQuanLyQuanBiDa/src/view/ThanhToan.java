@@ -1,25 +1,34 @@
 package view;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.DichVu;
+import service.DichVuService;
+import viewModel.GioHang;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
-/**
- *
- * @author Acer
- */
 public class ThanhToan extends javax.swing.JFrame {
+    
+    
+    List<GioHang> listGH = new ArrayList<>();
+    private DichVuService service = new DichVuService();
+    DefaultTableModel model;
+    DefaultTableModel model1;
+    DefaultTableModel model2;
+    DefaultTableModel model3;
 
-    /**
-     * Creates new form MainTest
-     */
-    public ThanhToan() {
+    public ThanhToan(String maBan) {
         initComponents();
 //        this.setSize(1650,1080);
+        lblBanSo.setText(maBan);
+        loadTableNuoc();
+        loadTableGay();
+//        loadTableDoAn();
+    }
+    
+    public ThanhToan() {
+        initComponents();
     }
 
     /**
@@ -29,6 +38,7 @@ public class ThanhToan extends javax.swing.JFrame {
      */
     int x = 0;
     int a = 0;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,7 +95,7 @@ public class ThanhToan extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblChiTietDV = new javax.swing.JTable();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
@@ -102,11 +112,11 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblDichVuNuoc = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblDoAn = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tblGay = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -358,12 +368,12 @@ public class ThanhToan extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblChiTietDV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Dịch Vụ", "Số Lượng", "Giá", "Hành động"
+                "Dịch Vụ", "Số Lượng", "Giá", "Thanh Tien"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -374,7 +384,7 @@ public class ThanhToan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblChiTietDV);
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel34.setText("Mã giảm giá :");
@@ -540,9 +550,7 @@ public class ThanhToan extends javax.swing.JFrame {
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel34))
+                            .addComponent(jLabel34)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -564,12 +572,12 @@ public class ThanhToan extends javax.swing.JFrame {
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel40.setText("Dịch vụ");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblDichVuNuoc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Ten", "So Luong", "Gi"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -580,16 +588,21 @@ public class ThanhToan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        tblDichVuNuoc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichVuNuocMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblDichVuNuoc);
 
         jTabbedPane1.addTab("Nước Uống", jScrollPane3);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoAn.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Ten", "So Luong", "Gia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -600,16 +613,16 @@ public class ThanhToan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(tblDoAn);
 
         jTabbedPane1.addTab("Đồ Ăn", jScrollPane4);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tblGay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Ten", "So Luong", "Gia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -620,7 +633,7 @@ public class ThanhToan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(tblGay);
 
         jTabbedPane1.addTab("Thuê Gậy", jScrollPane5);
 
@@ -703,49 +716,51 @@ public class ThanhToan extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 //        panelMenu.setSize(220,650);
 
-            if ( x==220  ) {
+        if (x == 220) {
             panelMenu.setSize(0, 650);
             Thread th = new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
-                        
-                        for ( int i = 0; i <= 220; i++){
+
+                        for (int i = 0; i <= 220; i++) {
                             Thread.sleep(1);
                             panelMenu.setSize(i, 650);
-                            
+
                             a++;
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
-            };th.start();
-            x=0;
+            };
+            th.start();
+            x = 0;
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
 //        panelMenu.setSize(0,650);
-if ( x ==0 ) {
+        if (x == 0) {
             panelMenu.setSize(220, 650);
             Thread th = new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
-                        
-                        for ( int i = 220; i >= 0; i--){
+
+                        for (int i = 220; i >= 0; i--) {
                             Thread.sleep(1);
                             panelMenu.setSize(i, 650);
-                            
+
                             a--;
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
-            };th.start();
-            x=220;
+            };
+            th.start();
+            x = 220;
         }
     }//GEN-LAST:event_jLabel16MouseClicked
 
@@ -789,6 +804,25 @@ if ( x ==0 ) {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tblDichVuNuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuNuocMouseClicked
+        int row = tblDichVuNuoc.getSelectedRow();
+        GioHang gh = new GioHang();
+        gh.setDichVu((String) tblDichVuNuoc.getValueAt(row, 0));
+        gh.setGia((Double) tblDichVuNuoc.getValueAt(row, 1));
+        gh.setSoLuong(1);
+//        int soLuong = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban chon so luong"));
+//
+//        if (soLuong > sp.getSoLuongTon()) {
+//            JOptionPane.showConfirmDialog(this, "Không du so luong ! Moi chon lai.");
+//            return;
+//        }
+//        gh.setSoLuong(soLuong);
+        listGH.add(gh);
+        int i = 0;
+        i++;
+        loadGioHang(listGH);
+    }//GEN-LAST:event_tblDichVuNuocMouseClicked
 
     /**
      * @param args the command line arguments
@@ -889,10 +923,6 @@ if ( x ==0 ) {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -903,5 +933,39 @@ if ( x ==0 ) {
     private javax.swing.JLabel lblBanSo;
     private javax.swing.JLabel lblthongbaoloi;
     private javax.swing.JPanel panelMenu;
+    private javax.swing.JTable tblChiTietDV;
+    private javax.swing.JTable tblDichVuNuoc;
+    private javax.swing.JTable tblDoAn;
+    private javax.swing.JTable tblGay;
     // End of variables declaration//GEN-END:variables
+
+    private void loadTableNuoc() {
+        model = (DefaultTableModel) tblDichVuNuoc.getModel();
+        model.setRowCount(0);
+        List<DichVu> list = service.dichVuNuoc();
+        for (DichVu s : list) {
+            model.addRow(new Object[]{s.getTen(), s.getSoLuong(), s.getGia()});
+        }
+    }
+
+    private void loadTableDoAn() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void loadTableGay() {
+        model1 = (DefaultTableModel) tblGay.getModel();
+        model1.setRowCount(0);
+        List<DichVu> list = service.dichGay();
+        for (DichVu s : list) {
+            model1.addRow(new Object[]{s.getTen(), s.getSoLuong(), s.getGia()});
+        }
+    }
+
+    private void loadGioHang(List<GioHang> listGH) {
+        model3 = (DefaultTableModel) tblChiTietDV.getModel();
+        model3.setRowCount(0);
+        for (GioHang s : listGH) {
+            model1.addRow(new Object[]{s.getDichVu(), 1,s.getGia(), s.getGia()*1});
+        }
+    }
 }
