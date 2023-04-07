@@ -7,14 +7,16 @@ public class HoaDonChiTietViewModel {
     private int soLuong;
     private double gia;
 
-    public HoaDonChiTietViewModel() {
-    }
+ 
 
     public HoaDonChiTietViewModel(String tenBan, String tenDV, int soLuong, double gia) {
         this.tenBan = tenBan;
         this.tenDV = tenDV;
         this.soLuong = soLuong;
         this.gia = gia;
+    }
+
+    public HoaDonChiTietViewModel() {
     }
 
     public String getTenBan() {

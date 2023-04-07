@@ -31,8 +31,8 @@ public class HoaDonService {
         return repo.thongKeHoaDon();
     }
 
-    public List<HoaDonChiTietViewModel> HoaDonchiTiet() {
-        return repo.HoaDonchiTiet();
+    public List<HoaDonChiTietViewModel> layHoaDonCT(String ma) {
+        return repo.layHoaDonCT(ma);
     }
 
     public List<HoaDon> layHoaDontuNgay(String dateBD, String dateKT) {

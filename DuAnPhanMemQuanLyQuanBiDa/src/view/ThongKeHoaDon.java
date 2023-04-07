@@ -513,14 +513,22 @@ public void loadTable() {
     }
 
     public void loadHDCT() {
-        model = (DefaultTableModel) tableHDCT.getModel();
-        model.setNumRows(0);
-        ArrayList<HoaDonChiTietViewModel> list = (ArrayList<HoaDonChiTietViewModel>) hoaDonService.HoaDonchiTiet();
-        for (HoaDonChiTietViewModel hd : list) {
-            model.addRow(new Object[]{
-                hd.getTenBan(), hd.getTenDV(), hd.getSoLuong(), hd.getGia()
-            });
+        int luaChon = tableHoaDon.getSelectedRow();
+        if (luaChon > -1) {
+            String ma=tableHoaDon.getValueAt(luaChon, 0).toString();
+            model = (DefaultTableModel) tableHDCT.getModel();
+            model.setNumRows(0);
+            ArrayList<HoaDonChiTietViewModel> list = (ArrayList<HoaDonChiTietViewModel>) hoaDonService.layHoaDonCT(ma);
+            for (HoaDonChiTietViewModel hd : list) {
+                model.addRow(new Object[]{
+                    hd.getTenBan(), hd.getTenDV(), hd.getSoLuong(), hd.getGia()
+                });
+            }
         }
+    }
+    public void reSetTableHDCT(){
+        model=(DefaultTableModel) tableHDCT.getModel();
+        model.setNumRows(0);
     }
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 //        panelMenu.setSize(220,650);
@@ -607,6 +615,7 @@ public void loadTable() {
             }
 
         }
+        reSetTableHDCT();
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -628,10 +637,11 @@ public void loadTable() {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         loadTable();
+        reSetTableHDCT();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tableHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableHoaDonMouseClicked
-        // TODO add your handling code here:
+        loadHDCT();
     }//GEN-LAST:event_tableHoaDonMouseClicked
     public void XuatHoaDon(int idhd) {
         try {
@@ -673,7 +683,7 @@ public void loadTable() {
         if (selectedDateBT.after(ngayHT)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải trước ngày hiện tại.");
             return false;
-        }else if (selectedDateBT.after(selectedDateKT)) {
+        } else if (selectedDateBT.after(selectedDateKT)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
             return false;
         }

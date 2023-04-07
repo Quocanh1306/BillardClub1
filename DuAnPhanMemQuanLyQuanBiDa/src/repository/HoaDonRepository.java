@@ -69,24 +69,7 @@ public class HoaDonRepository {
         }
         return list;
     }
-
-    public List<HoaDonChiTietViewModel> HoaDonchiTiet() {
-        List<HoaDonChiTietViewModel> list = new ArrayList<>();
-        String SELECT_HDCT = "select bc.tenBan, dv.ten, ctbc.soLuong, dv.gia from HoaDonChiTiet hdct join HoaDon hd on hdct.idHD = hd.id join BanChoi bc on bc.id = hdct.idBan join ChiTietBanChoi ctbc on ctbc.idBan = bc.id join DichVu dv on ctbc.idDV = dv.id";
-        try {
-            Connection conn = DBContext.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(SELECT_HDCT);
-            while (rs.next()) {
-                list.add(new HoaDonChiTietViewModel(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
-            }
-        } catch (Exception ex) {
-            System.out.println("Loi tai get hoa don");
-        }
-        return list;
-    }
-
-    public List<HoaDon> layHoaDontuNgay(String dateBD, String dateKT) {
+ public List<HoaDon> layHoaDontuNgay(String dateBD, String dateKT) {
         List<HoaDon> listHD = new ArrayList<>();
         String sql = "select id,maHD,ngayTao,ngayThanhToan,tongTien from HoaDon where NGAYTAO between ? and  ? order by NGAYTAO";
 
@@ -103,4 +86,21 @@ public class HoaDonRepository {
         }
         return listHD;
     }
+    public List<HoaDonChiTietViewModel> layHoaDonCT(String ma) {
+        List<HoaDonChiTietViewModel> list = new ArrayList<>();
+        String select = "select bc.tenBan, dv.ten, ctbc.soLuong, dv.gia from HoaDonChiTiet hdct join HoaDon hd on hdct.idHD = hd.id join BanChoi bc on bc.id = hdct.idBan join ChiTietBanChoi ctbc on ctbc.idBan = bc.id join DichVu dv on ctbc.idDV = dv.id where hd.maHD = ?";
+        try ( Connection con = DBContext.getConnection();  PreparedStatement sttm = con.prepareStatement(select)) {
+            sttm.setString(1, ma);
+            ResultSet rs = sttm.executeQuery();
+            while (rs.next()) {
+                list.add(new HoaDonChiTietViewModel(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(4)));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+   
 }

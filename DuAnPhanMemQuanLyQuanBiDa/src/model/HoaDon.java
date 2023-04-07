@@ -8,8 +8,6 @@ public class HoaDon {
     private String ngayThanhToan;
     private double tongTien;
 
-    public HoaDon() {
-    }
 
     public HoaDon(int id, String ma, String ngayTao, String ngayThanhToan, double tongTien) {
         this.id = id;
@@ -19,6 +17,8 @@ public class HoaDon {
         this.tongTien = tongTien;
     }
 
+    public HoaDon() {
+    }
     public int getId() {
         return id;
     }
