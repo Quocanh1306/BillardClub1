@@ -1,15 +1,23 @@
 
-
 import java.awt.Color;
+import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.DichVu;
+import view.QuanLyCoSoVatChat;
+import view.QuanLyDichVu;
+import view.QuanLyKhachHang;
+import view.QuanLyKhuyenMai;
+import view.QuanLyNhanVien;
 import view.ThanhToan;
+import view.ThongKeDoanhThu;
+import view.ThongKeHoaDon;
+import view.TrangChu;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Acer
@@ -24,7 +32,6 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 //        setSize(1650,1080);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-
     }
 
     /**
@@ -34,6 +41,7 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
      */
     int x = 0;
     int a = 0;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -209,6 +217,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         panelMenu.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 220, 40));
 
         jPanel5.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 28)); // NOI18N
@@ -219,6 +232,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         panelMenu.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 220, 70));
 
         jPanel6.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -232,6 +250,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
         panelMenu.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 220, 40));
 
         jPanel7.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -271,6 +294,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 102));
         jPanel3.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -286,6 +314,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(255, 204, 102));
         jPanel9.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setBackground(new java.awt.Color(255, 204, 153));
@@ -302,6 +335,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(255, 204, 102));
         jPanel10.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel10MouseClicked(evt);
+            }
+        });
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -317,6 +355,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(255, 204, 102));
         jPanel11.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel11MouseClicked(evt);
+            }
+        });
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -332,6 +375,11 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
 
         jPanel12.setBackground(new java.awt.Color(255, 204, 102));
         jPanel12.setForeground(new java.awt.Color(255, 204, 102));
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+        });
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
@@ -906,49 +954,51 @@ public class QuanLyBanChoi extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 //        panelMenu.setSize(220,650);
 
-            if ( x==220  ) {
+        if (x == 220) {
             panelMenu.setSize(0, 810);
             Thread th = new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
-                        
-                        for ( int i = 0; i <= 220; i++){
+
+                        for (int i = 0; i <= 220; i++) {
                             Thread.sleep(1);
                             panelMenu.setSize(i, 810);
-                            
+
                             a++;
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
-            };th.start();
-            x=0;
+            };
+            th.start();
+            x = 0;
         }
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
 //        panelMenu.setSize(0,650);
-if ( x ==0 ) {
+        if (x == 0) {
             panelMenu.setSize(220, 810);
             Thread th = new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
-                        
-                        for ( int i = 220; i >= 0; i--){
+
+                        for (int i = 220; i >= 0; i--) {
                             Thread.sleep(1);
                             panelMenu.setSize(i, 810);
-                            
+
                             a--;
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e);
                     }
                 }
-            };th.start();
-            x=220;
+            };
+            th.start();
+            x = 220;
         }
     }//GEN-LAST:event_jLabel16MouseClicked
 
@@ -958,21 +1008,82 @@ if ( x ==0 ) {
 
     private void vaoBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaoBanActionPerformed
         String ban = "Ban 01";
-        ThanhToan tt = new ThanhToan(ban);
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        String gioBatDau = hour + ":" + minute + ":" + second;
+        ThanhToan tt = new ThanhToan(ban, gioBatDau);
         tt.setVisible(true);
         lblTrangThaiBan01.setText("Trang thai: Dang choi");
         lblTrangThaiBan01.setForeground(Color.red);
+
     }//GEN-LAST:event_vaoBanActionPerformed
 
     private void ketThucBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ketThucBanActionPerformed
         lblTrangThaiBan01.setText("Trang thai: Con Trong");
         lblTrangThaiBan01.setForeground(Color.green);
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        String gioKetThuc = hour + ":" + minute + ":" + second;
+        ThanhToan tt = new ThanhToan(gioKetThuc);
+        tt.setVisible(true);
     }//GEN-LAST:event_ketThucBanActionPerformed
 
     private void datBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datBanActionPerformed
         lblTrangThaiBan01.setText("Trang thai: Ban da duoc dat");
         lblTrangThaiBan01.setForeground(Color.YELLOW);
     }//GEN-LAST:event_datBanActionPerformed
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        TrangChu tc = new TrangChu();
+        tc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        QuanLyDichVu dv = new QuanLyDichVu();
+        dv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
+        QuanLyNhanVien nv = new QuanLyNhanVien();
+        nv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        QuanLyKhachHang kh = new QuanLyKhachHang();
+        kh.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        QuanLyKhuyenMai km = new QuanLyKhuyenMai();
+        km.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel9MouseClicked
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        ThongKeDoanhThu tk =new ThongKeDoanhThu();
+        tk.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel10MouseClicked
+
+    private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
+        ThongKeHoaDon hd=new ThongKeHoaDon();
+        hd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        QuanLyCoSoVatChat csvc =new QuanLyCoSoVatChat();
+        csvc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel12MouseClicked
 
     /**
      * @param args the command line arguments

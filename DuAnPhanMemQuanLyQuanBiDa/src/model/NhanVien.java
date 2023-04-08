@@ -15,16 +15,20 @@ public class NhanVien {
     private String ma;
     private String ten;
     private int gioiTinh;
-    private Date ngaySinh;
+    private String ngaySinh;
     private String diaChi;
     private String sdt;
-    private int diemTichLuy;
     private String soCMT;
     private String matKhau;
     private int vaiTro;
     private int tinhTrang;
+    private String email;
+    private String img;
 
-    public NhanVien(int id, String ma, String ten, int gioiTinh, Date ngaySinh, String diaChi, String sdt, int diemTichLuy, String soCMT, String matKhau, int vaiTro, int tinhTrang) {
+    public NhanVien() {
+    }
+
+    public NhanVien(int id, String ma, String ten, int gioiTinh, String ngaySinh, String diaChi, String sdt, String soCMT, String matKhau, int vaiTro, int tinhTrang, String email, String img) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -32,18 +36,13 @@ public class NhanVien {
         this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
-        this.diemTichLuy = diemTichLuy;
         this.soCMT = soCMT;
         this.matKhau = matKhau;
         this.vaiTro = vaiTro;
         this.tinhTrang = tinhTrang;
+        this.email = email;
+        this.img = img;
     }
-
-    public NhanVien(String ma, String matKhau) {
-        this.ma = ma;
-        this.matKhau = matKhau;
-    }
-    
 
     public int getId() {
         return id;
@@ -77,11 +76,11 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -99,14 +98,6 @@ public class NhanVien {
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
-    }
-
-    public int getDiemTichLuy() {
-        return diemTichLuy;
-    }
-
-    public void setDiemTichLuy(int diemTichLuy) {
-        this.diemTichLuy = diemTichLuy;
     }
 
     public String getSoCMT() {
@@ -140,5 +131,23 @@ public class NhanVien {
     public void setTinhTrang(int tinhTrang) {
         this.tinhTrang = tinhTrang;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    
     
 }
